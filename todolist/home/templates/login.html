@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Log In</title>
+     <style>
+        body{
+            margin:0;
+            background-color: aliceblue;
+        }
+
+        #div1{
+            width: 30%;
+            height: 200px;
+            background-color: lightgray;
+            position: absolute;
+            border-radius: 12px;
+            left: 35%;
+            top: 25%;
+        }
+        #Username{
+            width: 200px;
+            height: 30px;
+            border-radius: 12px;
+            margin-left:16px;
+            margin-top: 20px;
+            border-color: aquamarine;
+        }
+        #Password{
+            width: 200px;
+            height: 30px;
+            border-radius: 12px;
+            margin-left:20px;
+            margin-top: 20px;
+            border-color: aquamarine;
+        }
+        #Btn{
+            width: 90px;
+            height:20px;
+            border-radius:10px;
+            background-color: aliceblue;
+
+        }
+
+    </style>
+</head>
+<body>
+  <div id="div1">
+
+      <form action="" method="post">
+          {% csrf_token %}
+          <label style="margin-left: 60px" for="UserName">Username :</label>
+          <input id="Username" name="username" type="text" placeholder="username">
+          <label style="margin-left: 60px" for="password">Password :</label>
+          <input id="Password" name="password" type="password" placeholder="password">
+          <br>
+          <br>
+          <button  style="margin-left: 60px" id="Btn" type="submit">Log In</button>
+      </form>
+
+
+  </div>
+
+</body>
+</html>
