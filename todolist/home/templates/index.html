@@ -2,11 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <style>
+       #div1{
+            width: 10%;
+            height: 80px;
+            background-color: lightgray;
+            position: absolute;
+            border-radius: 12px;
+            left: 45%;
+            top: 25%;
+        }
+    </style>
 
 </head>
 <body>
-
- <a href="/login">Log In     <a href="/signup">Sign Up</a> </a>
+{% if user.id is not None %}
+  <li><a href="/logout">Logout</a></li>
+{% else %}
+    <div id="div1"> <a href="/login">Log In<br>
+    <br><a href="/signup">Sign Up</a> </a></div>
+{% endif %}
 
 </body>
 </html>
