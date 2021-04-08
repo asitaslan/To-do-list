@@ -1,11 +1,14 @@
+from random import choice
+
 from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
-from django.forms import ModelForm, TextInput
+from django.forms import ModelForm, TextInput, DateInput
 from django.urls import reverse
 
 class Lists(models.Model):
+    user = models.ForeignKey(User, on_delete= models.CASCADE)
     name = models.CharField(max_length=30)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -44,3 +47,17 @@ class ListForm(ModelForm):
         }
         def get_absolute_url(self):
             return reverse('addlist', kwargs={'slug': self.slug})
+
+
+class ItemForm(ModelForm):
+    class Meta:
+        model = Items
+        fields = ['name','description','deadline','slug']
+        widgets = {
+            'deadline': DateInput(attrs={'class': 'DateInput', 'placeholder': 'enter deadline'}),
+            'name': TextInput(attrs={'class': 'input', 'placeholder': 'name'}),
+            'slug': TextInput(attrs={'class': 'input', 'placeholder': 'slug'}),
+            'description': TextInput(attrs={'class': 'input', 'placeholder':'description'})
+        }
+        def get_absolute_url(self):
+            return reverse('additem', kwargs={'slug': self.slug})

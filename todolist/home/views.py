@@ -7,11 +7,17 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from lists.models import Lists, ListForm
+from lists.models import Lists, ListForm, ItemForm
 
 
+@login_required(login_url='/login')  # Check login
 def index(request):
-    return render(request, 'index.html')
+    current_user = request.user
+    lists = Lists.objects.filter(user_id=current_user)
+    context = {
+        'lists': lists
+    }
+    return render(request, 'index.html',context)
 
 def login_view(request):
     if request.method == 'POST':
@@ -21,7 +27,7 @@ def login_view(request):
         if user is not None:
             login(request, user)
             # Redirect to a success page.
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/index')
         else:
             messages.error(request, "Warning! Check username or password")
             return HttpResponseRedirect('/login')
@@ -31,7 +37,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect('/')
+    return HttpResponseRedirect('/login')
 
 def signup_view(request):
     if request.method == 'POST':
@@ -58,14 +64,6 @@ def signup_view(request):
 
 
 @login_required(login_url='/login')  # Check login
-def lists(request):
-    current_user = request.user
-    lists = Lists.objects.filter(user_id=current_user)
-
-    return render(request, 'index.html', lists)
-
-
-@login_required(login_url='/login')  # Check login
 def addlist(request):
     if request.method == 'POST':
         form = ListForm(request.POST, request.FILES)
@@ -77,7 +75,7 @@ def addlist(request):
             data.slug = form.cleaned_data['slug']
             data.save()  # save to database
             messages.success(request, 'Your Content Insterted Successfuly')
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/index')
         else:
             messages.success(request, 'Content Form Error:' + str(form.errors))
             return HttpResponseRedirect('/addlist')
@@ -88,3 +86,31 @@ def addlist(request):
             'form': form,
         }
         return render(request, 'addlist.html', context)
+
+@login_required(login_url='/login')  # Check login
+def additem(request):
+    if request.method == 'POST':
+        form = ItemForm(request.POST, request.FILES)
+        if form.is_valid():
+            current_user = request.user
+            belong_list = request.list
+            data = Lists()  # connetion with models
+            data.user_id = current_user.id
+            data.list_id = belong_list
+            data.name = form.cleaned_data['name']
+            data.slug = form.cleaned_data['slug']
+            data.description = form.description_data['description']
+            data.deadline = form.deadline_data['deadline']
+            data.save()  # save to database
+            messages.success(request, 'Your Content Insterted Successfuly')
+            return HttpResponseRedirect('/')
+        else:
+            messages.success(request, 'Content Form Error:' + str(form.errors))
+            return HttpResponseRedirect('/additem')
+    else:
+
+        form = ItemForm()
+        context = {
+            'form': form,
+        }
+        return render(request, 'additem.html', context)

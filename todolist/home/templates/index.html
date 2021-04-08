@@ -137,18 +137,14 @@ input {
 
        <a style="margin-left: 38%" href="/addlist" class="addBtn">Add</a>
     </div>
-
      <table class="table table-bordered table-condensed">
-                {% for rs in lists %}
+         {% for rs in lists %}
                     <tr>
-                        <td class="text-left">{{ rs.name }}</td>
-                        <td class="text-left">{{ rs.created_at }}</td>
+                        <td  style="margin-left: 80px"  class="text-left"><h1>{{ rs.name }}</h1></td>
+                        <td style="margin-left: 80px" class="text-left"><h1>{{ rs.created_at }}</h1></td>
                     </tr>
-                {% endfor %}
+         {% endfor %}
      </table>
-{% else %}
-    <div id="div1"> <a href="/login">Log In<br>
-    <br><a href="/signup">Sign Up</a> </a></div>
 {% endif %}
 
 </body>
