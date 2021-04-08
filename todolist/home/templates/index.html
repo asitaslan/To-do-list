@@ -134,12 +134,12 @@ input {
 {% if user.id is not None %}
     <div id="myDIV" class="header">
       <h2>My To Do List</h2><h3><a href="/logout">Logout</a></h3>
-       <input type="text" id="myInput" placeholder="Title...">
-       <a href="/" class="addBtn">Add</a>
+
+       <a style="margin-left: 38%" href="/addlist" class="addBtn">Add</a>
     </div>
 
      <table class="table table-bordered table-condensed">
-                {% for rs in list %}
+                {% for rs in lists %}
                     <tr>
                         <td class="text-left">{{ rs.name }}</td>
                         <td class="text-left">{{ rs.created_at }}</td>
@@ -150,8 +150,6 @@ input {
     <div id="div1"> <a href="/login">Log In<br>
     <br><a href="/signup">Sign Up</a> </a></div>
 {% endif %}
-
-
 
 </body>
 </html>
