@@ -25,20 +25,18 @@
        <a  style="margin-left: 20px" href="/additem" class="addBtn">Add</a>
        <a style="margin-left: 20px" href="/additem" class="addBtn">Filter</a>
     </div>
-  <table id="table1" >
+   <table id="table1" >
       {% for rs in item %}
         <tr>
             <td class="tex-left">To do:  {{ rs.name }}</td>
             <td class="tex-left">| Creat date: {{ rs.created_at }}</td>
             <td class="tex-left">| Deadline: {{ rs.deadline }}| </td>
-            <td class="text-left">| Description {{ rs.description }}</td>
+            <td class="text-left">| Description: {{ rs.description }}</td>
             <td><a style="margin-left: 38%" href="/additem" class="addBtn">DELETE</a></td>
             <td><a style="margin-left: 38%" href="/additem" class="addBtn">COMPLATED</a></td>
         </tr>
       {% endfor %}
-  </table>
-
-
+   </table>
 
 </body>
 </html>

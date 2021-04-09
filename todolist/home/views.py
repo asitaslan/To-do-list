@@ -93,17 +93,16 @@ def additem(request):
         form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
             current_user = request.user
-            data = Lists()  # connetion with models
+            data = Items()  # connetion with models
             data.user_id = current_user.id
             data.list = form.cleaned_data['list']
             data.name = form.cleaned_data['name']
-            data.slug = form.cleaned_data['slug']
-            data.description = form.description_data['description']
-            data.deadline = form.deadline_data['deadline']
+            data.description = form.cleaned_data['description']
+            data.deadline = form.cleaned_data['deadline']
             data.status = 'False'
             data.save()  # save to database
             messages.success(request, 'Your Content Insterted Successfuly')
-            return HttpResponseRedirect('/')
+            return HttpResponseRedirect('/index')
         else:
             messages.success(request, 'Content Form Error:' + str(form.errors))
             return HttpResponseRedirect('/additem')
@@ -111,7 +110,7 @@ def additem(request):
 
         form = ItemForm()
         context = {
-            'form': form,
+            'form': form
         }
         return render(request, 'additem.html', context)
 
@@ -120,6 +119,7 @@ def additem(request):
 def list_detail(request, id, slug):
     list = Lists.objects.get(pk=id)
     item = Items.objects.filter(list_id=id, status=False)
+
     context ={
         'item': item
     }
