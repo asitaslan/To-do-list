@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-from lists.models import Lists, ListForm, ItemForm
+from lists.models import Lists, ListForm, ItemForm, Items
 
 
 @login_required(login_url='/login')  # Check login
@@ -87,20 +87,20 @@ def addlist(request):
         }
         return render(request, 'addlist.html', context)
 
-@login_required(login_url='/login')  # Check login
+@login_required(login_url='/login')
 def additem(request):
     if request.method == 'POST':
         form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
             current_user = request.user
-            belong_list = request.list
             data = Lists()  # connetion with models
             data.user_id = current_user.id
-            data.list_id = belong_list
+            data.list = form.cleaned_data['list']
             data.name = form.cleaned_data['name']
             data.slug = form.cleaned_data['slug']
             data.description = form.description_data['description']
             data.deadline = form.deadline_data['deadline']
+            data.status = 'False'
             data.save()  # save to database
             messages.success(request, 'Your Content Insterted Successfuly')
             return HttpResponseRedirect('/')
@@ -114,3 +114,13 @@ def additem(request):
             'form': form,
         }
         return render(request, 'additem.html', context)
+
+
+@login_required(login_url='/login')
+def list_detail(request, id, slug):
+    list = Lists.objects.get(pk=id)
+    item = Items.objects.filter(list_id=id, status=False)
+    context ={
+        'item': item
+    }
+    return render(request,'list_detail.html', context)

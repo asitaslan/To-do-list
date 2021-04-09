@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
-from django.forms import ModelForm, TextInput, DateInput
+from django.forms import ModelForm, TextInput, Select
 from django.urls import reverse
 
 class Lists(models.Model):
@@ -31,7 +31,7 @@ class Items(models.Model):
     status = models.CharField(max_length=10, choices=STATUS)
     description = models.CharField(blank=True, max_length= 255)
     created_at = models.DateTimeField(auto_now_add=True)
-    deadline = models.DateTimeField(auto_now_add=False)
+    deadline = models.CharField(max_length=60)
     slug = models.SlugField(null=False, unique=True)
 
     def __str__(self):
@@ -54,7 +54,8 @@ class ItemForm(ModelForm):
         model = Items
         fields = ['name','description','deadline','slug']
         widgets = {
-            'deadline': DateInput(attrs={'class': 'DateInput', 'placeholder': 'enter deadline'}),
+            'list': Select(attrs={'class': 'input', 'placeholder': 'list'}, choices={Lists.objects.all()}),
+            'deadline': TextInput(attrs={'class': 'DateInput', 'placeholder': 'Mounth, day, year, time(p.m/a.m)'}),
             'name': TextInput(attrs={'class': 'input', 'placeholder': 'name'}),
             'slug': TextInput(attrs={'class': 'input', 'placeholder': 'slug'}),
             'description': TextInput(attrs={'class': 'input', 'placeholder':'description'})

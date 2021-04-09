@@ -133,15 +133,15 @@ input {
 
 {% if user.id is not None %}
     <div id="myDIV" class="header">
-      <h2>My To Do List</h2><h3><a href="/logout">Logout</a></h3>
+      <h2>My To Do Lists</h2><h3><a href="/logout">Logout</a></h3>
 
        <a style="margin-left: 38%" href="/addlist" class="addBtn">Add</a>
     </div>
      <table class="table table-bordered table-condensed">
          {% for rs in lists %}
                     <tr>
-                        <td  style="margin-left: 80px"  class="text-left"><h1>{{ rs.name }}</h1></td>
-                        <td style="margin-left: 80px" class="text-left"><h1>{{ rs.created_at }}</h1></td>
+                        <td  style="margin-left: 80px"  class="text-left"><h2 style="border-color: red">List Name: <a href="/list/{{ rs.id }}/{{ rs.slug }}"> {{ rs.name }}</a></h2></td>
+                        <td style="margin-left: 80px" class="text-left"><h2 style="margin-left: 80px">Craeted at : {{ rs.created_at }}</h2></td>
                     </tr>
          {% endfor %}
      </table>
