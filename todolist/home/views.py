@@ -124,3 +124,10 @@ def list_detail(request, id, slug):
         'item': item
     }
     return render(request,'list_detail.html', context)
+
+
+@login_required(login_url='/login')
+def itemdelete(request, id):
+    curent_user = request.user
+    Items.objects.filter(id = id, user_id = curent_user.id).delete()
+    return HttpResponseRedirect('/index')

@@ -28,5 +28,6 @@ urlpatterns = [
     path('addlist/', views.addlist, name='addlist'),
     path('additem/', views.additem, name='additem'),
     path('list/<int:id>/<slug:slug>/', views.list_detail, name='list_detail'),
-    path('list_detail/',views.list_detail, name = 'list_detail')
+    path('list_detail/',views.list_detail, name = 'list_detail'),
+    path('index/<int:id>', views.itemdelete, name='itemdelete'),
 ]
