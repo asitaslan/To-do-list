@@ -1,5 +1,6 @@
 # For install and Running
 
+
 1- Install .zip and take out from zip
 2- open "cmd" or "terminal" 
 3- Go project folder with command "cd"(example:  > cd C:\Users\asita\OneDrive\Masaüstü\To-do-list\todolist)
