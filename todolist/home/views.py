@@ -132,9 +132,10 @@ def list_detail(request, id, slug):
 
 @login_required(login_url='/login')
 def itemdelete(request, id):
+    url = request.META.get('HTTP_REFERER')
     curent_user = request.user
     Items.objects.filter(id = id, user_id = curent_user.id).delete()
-    return HttpResponseRedirect('/index')
+    return HttpResponseRedirect(url)
 
 
 
