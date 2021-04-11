@@ -145,8 +145,12 @@ input {
                         <td  style="margin-left: 80px"  class="text-left"><h2 style="border-color: red">List Name: <a href="/list/{{ rs.id }}/{{ rs.slug }}"> {{ rs.name }}</a></h2></td>
                         <td style="margin-left: 80px" class="text-left"><h2 style="margin-left: 80px">Craeted at : {{ rs.created_at }}</h2></td>
                     </tr>
+               
+                    
          {% endfor %}
+      
      </table>
+  
 {% endif %}
 
 </body>

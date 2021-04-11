@@ -99,6 +99,7 @@ def additem(request):
             data.name = form.cleaned_data['name']
             data.description = form.cleaned_data['description']
             data.deadline = form.cleaned_data['deadline']
+            data.slug = form.cleaned_data['slug']
             data.status = 'False'
             data.save()  # save to database
             messages.success(request, 'Your Content Insterted Successfuly')
@@ -126,8 +127,15 @@ def list_detail(request, id, slug):
     return render(request,'list_detail.html', context)
 
 
+
+
+
 @login_required(login_url='/login')
 def itemdelete(request, id):
     curent_user = request.user
     Items.objects.filter(id = id, user_id = curent_user.id).delete()
     return HttpResponseRedirect('/index')
+
+
+
+

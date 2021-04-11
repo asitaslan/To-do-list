@@ -22,18 +22,18 @@
    <div id="myDIV" class="header">
       <h2>Lists Items</h2>
        <a href="/index">back</a>
-       
-       <a style="margin-left: 20px" href="/additem" class="addBtn">Filter</a>
+
     </div>
    <table id="table1" >
       {% for rs in item %}
         <tr>
+            
             <td class="tex-left">To do:  {{ rs.name }}</td>
             <td class="tex-left">| Creat date: {{ rs.created_at }}</td>
             <td class="tex-left">| Deadline: {{ rs.deadline }}| </td>
             <td class="text-left">| Description: {{ rs.description }}</td>
             <td><a onclick="return confirm('Will be Delete! Are you sure?')" class="btn btn-primary" href="/index/{{ rs.id }}">Delete</a></td>
-            <td><a style="margin-left: 38%" href="/additem" class="addBtn">COMPLATED</a></td>
+
         </tr>
       {% endfor %}
    </table>
